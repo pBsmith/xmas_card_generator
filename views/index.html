@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+        <style>
+            
+            .thumbnail:hover {
+                position:relative;
+                top: -25px;
+                left: -35px;
+                width: 500px;
+                height: auto;
+                display: block;
+                z-index: 999;
+            }
+                
+            .image {
+                height: 100%;
+                width: 100%;
+            }
+
+            .bold-text {
+                text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
+            }
+                
+            canvas {
+                width: 100%;
+                height: auto;
+                border-style: solid;
+                border-width: 1px;
+            }
+                
+        </style>
+
+    </head>
+    
+    <body>
+        <div class="jumbotron jumbotron-fluid" style="background-color: #17ABF6;">
+            <div class="container">
+                <h1 class="display-3 bold-text" style="font-family: Impact; color: white">
+                    Christmas Card Generator
+                </h1>
+
+                <div class="row mt-3 ml-1">
+                    <h4>
+                        Select an image from the gallery and input some text to generate your christmas card. When
+                        you're done you can download your christmas card as a .png file!
+                    </h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            
+            <!-- Row contains canvas and inputs -->
+            <div class="row">
+                    
+                <!-- Left Pane has canvas -->
+                <div class="col-md-7">
+                        
+                    <h4>Make your card here!</h4>
+                        
+                    <!-- Section where Christmas Card Generator Appears-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <canvas id="canvas" width="640" height="480">
+                                Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                            </canvas>
+                        </div>
+                    </div>
+                    
+                </div>
+                    
+                    <!-- Right pane has forms and button for image -->
+                    <div class="col-md-5">
+                        
+                        <label for="cardImage">Card Image</label>
+                        <input type="text" class="form-control" id="cardImage" placeholder="Select an image.">
+                            
+                        <label for="cardText" class="mt-4">Card Text</label>
+                        <input type="text" class="form-control" id="cardTopText" placeholder="Put text at the top of your image here.">
+                            
+                        <label for="cardText" class="mt-4">Card Text</label>
+                        <input type="text" class="form-control" id="cardBottomText" placeholder="Put text at the bottom of your image here.">
+                        
+                        
+                        <button class="btn btn-primary btn-block mt-4" type="button" id="generateButton">
+                            Generate Christmas Card
+                        </button>
+                            
+                        <button class="btn btn-primary btn-block mt-4" type="button" onclick="downloadImage()">
+                            Download Christmas Card
+                        </button>
+                        
+                        <button class="btn btn-primary btn-block mt-4" type="button" id="goToSendEmail">
+                            Send Christmas Email
+                        </button>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Row contains gallery of Images -->
+        <div class="container">
+            
+            </br>
+            
+            <h1>Gallery</h1>
+                
+            <div class="row">
+                
+                <div class="col-md-3">
+                    <img class="image thumbnail" src="images/xmas_present.jpg" onclick="selectImage(this)" >
+                </div>
+                            
+                <div class="col-md-3">
+                    <img class="image thumbnail" src="images/christmas_tree.jpeg" onclick="selectImage(this)">
+                </div>
+                            
+                <div class="col-md-3">
+                    <img class="image thumbnail" src="images/happy_christmas_snowman.jpg" onclick="selectImage(this)">
+                </div>
+                            
+                <div class="col-md-3">
+                    <img class="image thumbnail" src="images/snowflake.jpg" onclick="selectImage(this)">
+                </div>
+            
+            </div>
+            
+            </br>
+            
+            <div class="row">
+                   
+                <div class="col-md-3">
+                    <img class="image thumbnail" src="images/stockings.jpg" onclick="selectImage(this)">
+                </div>
+                
+                <div class="col-md-3">
+                    <img class="image thumbnail" src="images/xmas_pic.jpeg" onclick="selectImage(this)">
+                </div>
+                
+                <div class="col-md-3">
+                    <img class="image thumbnail" src="images/xmas_grinch.png" onclick="selectImage(this)">
+                </div>
+                
+                <div class="col-md-3">
+                    <img class="image thumbnail" src="images/santa.jpg" onclick="selectImage(this)">
+                </div>
+                    
+            </div>
+            
+            </br>
+            
+        </div>
+
+    </body>
+    
+</html>
