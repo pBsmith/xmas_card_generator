@@ -28,7 +28,12 @@
             .bold-text {
                 text-shadow: 2px 0 0 black, -2px 0 0 black, 0 2px 0 black, 0 -2px 0 black, 1px 1px black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
             }
-                
+
+            .scrollable {
+                height: 200px;
+                overflow-y: scroll;
+            }
+
             canvas {
                 width: 100%;
                 height: auto;
@@ -56,7 +61,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container mb-3">
             
             <!-- Row contains canvas and inputs -->
             <div class="row">
@@ -80,26 +85,22 @@
                     <!-- Right pane has forms and button for image -->
                     <div class="col-md-5">
                         
-                        <label for="cardImage">Card Image</label>
-                        <input type="text" class="form-control" id="cardImage" placeholder="Select an image.">
-                            
                         <label for="cardText" class="mt-4">Card Text</label>
                         <input type="text" class="form-control" id="cardTopText" placeholder="Put text at the top of your image here.">
                             
                         <label for="cardText" class="mt-4">Card Text</label>
                         <input type="text" class="form-control" id="cardBottomText" placeholder="Put text at the bottom of your image here.">
                         
-                        
+                        <button class="btn btn-primary btn-block mt-4" type="button" id="clearCanvas">
+                            Clear Card
+                        </button>
+
                         <button class="btn btn-primary btn-block mt-4" type="button" id="generateButton">
-                            Generate Christmas Card
+                            Generate Card Text
                         </button>
                             
-                        <button class="btn btn-primary btn-block mt-4" type="button" onclick="downloadImage()">
+                        <button class="btn btn-primary btn-block mt-4 mb-4" type="button" onclick="downloadImage()">
                             Download Christmas Card
-                        </button>
-                        
-                        <button class="btn btn-primary btn-block mt-4" type="button" id="goToSendEmail">
-                            Send Christmas Email
                         </button>
                         
                     </div>
@@ -110,58 +111,132 @@
         </div>
 
         <!-- Row contains gallery of Images -->
-        <div class="container">
+        <div class="container mt-3 mb-3">
             
-            </br>
-            
-            <h1>Gallery</h1>
-                
-            <div class="row">
-                
-                <div class="col-md-3">
-                    <img class="image thumbnail" src="images/xmas_present.jpg" onclick="selectImage(this)" >
-                </div>
-                            
-                <div class="col-md-3">
-                    <img class="image thumbnail" src="images/christmas_tree.jpeg" onclick="selectImage(this)">
-                </div>
-                            
-                <div class="col-md-3">
-                    <img class="image thumbnail" src="images/happy_christmas_snowman.jpg" onclick="selectImage(this)">
-                </div>
-                            
-                <div class="col-md-3">
-                    <img class="image thumbnail" src="images/snowflake.jpg" onclick="selectImage(this)">
-                </div>
-            
+            <div class="row" style="background-color: #17ABF6; border-radius: 25px;">
+                <h1 class="display-4 bold-text ml-3 mt-3 mb-3" style="font-family: Impact; color: white;">
+                    Gallery
+                </h1>
             </div>
             
-            </br>
-            
-            <div class="row">
-                   
-                <div class="col-md-3">
-                    <img class="image thumbnail" src="images/stockings.jpg" onclick="selectImage(this)">
-                </div>
-                
-                <div class="col-md-3">
-                    <img class="image thumbnail" src="images/xmas_pic.jpeg" onclick="selectImage(this)">
-                </div>
-                
-                <div class="col-md-3">
-                    <img class="image thumbnail" src="images/xmas_grinch.png" onclick="selectImage(this)">
-                </div>
-                
-                <div class="col-md-3">
-                    <img class="image thumbnail" src="images/santa.jpg" onclick="selectImage(this)">
-                </div>
+            <div class="container scrollable mt-3">
+                <div class="row mt-3">
                     
+                    <div class="col-md-3">
+                        <img class="image img-thumbnail" src="images/xmas_prensents.png" onclick="selectImage(this)" >
+                    </div>
+                                
+                    <div class="col-md-3">
+                        <img class="image img-thumbnail" src="images/christmas_tree.png" onclick="selectImage(this)">
+                    </div>
+                                
+                    <div class="col-md-3">
+                        <img class="image img-thumbnail" src="images/christmas_snowman.png" onclick="selectImage(this)">
+                    </div>
+                                
+                    <div class="col-md-3">
+                        <img class="image img-thumbnail" src="images/snowflake.png" onclick="selectImage(this)">
+                    </div>
+                
+                </div>
+                
+                <div class="row mt-3">
+                    
+                    <div class="col-md-3">
+                        <img class="image img-thumbnail" src="images/stockings.png" onclick="selectImage(this)">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <img class="image img-thumbnail" src="images/xmas_pic.png" onclick="selectImage(this)">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <img class="image img-thumbnail" src="images/xmas_grinch.png" onclick="selectImage(this)">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <img class="image img-thumbnail" src="images/santa.png" onclick="selectImage(this)">
+                    </div>
+                        
+                </div>
             </div>
-            
-            </br>
             
         </div>
 
     </body>
+
+    <script>
+        
+        // Globale Variables
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+        var generateText = document.getElementById("generateButton");
+
+        function selectImage(address) {
+
+            var url = address.src;
+
+            var img = new Image();
+            img.src = url;
+
+            img.onload = function() {
+
+                canvas.width = 640;
+                canvas.height = 480;
+                canvas.width = Math.max(canvas.width, img.width);
+                canvas.height = Math.max(canvas.height, img.height);
+                    
+                context.drawImage(img, 0, 0, img.width, img.height);
+
+                generateText.onclick = function() {
+
+                    var topText = document.getElementById("cardTopText").value;
+                    var bottomText = document.getElementById("cardBottomText").value;
+                            
+                    var textX = img.width / 2;
+                            
+                    var topTextY = img.height * .15;
+                    var bottomTextY = img.height * .95;
+                            
+                    var fontSize = .10 * img.width;
+                    context.font = fontSize + "px Impact";
+                                    
+                    context.textAlign = "center";
+                                    
+                    context.strokeStyle = "black";
+                    context.lineWidth = .10 * fontSize;
+                    context.miterLimit = 2;
+                                    
+                    context.strokeText(topText, textX, topTextY);
+                    context.strokeText(bottomText, textX, bottomTextY);
+                                    
+                    context.fillStyle = "white";
+                                    
+                    context.fillText(topText, textX, topTextY);
+                    context.fillText(bottomText, textX, bottomTextY);
+
+                };
+            }
+
+        };
+
+        document.getElementById("clearCanvas").onclick = function() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            
+            document.getElementById("cardTopText").value = "";
+            document.getElementById("cardBottomText").value = "";
+        };
+            
+        function downloadImage(){
+            var img = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            
+            var link = document.createElement('a');
+            
+            link.download = "Christmas_Card.png";
+            link.href = img;
+            link.click();
+        };
+            
+    </script>
     
 </html>
