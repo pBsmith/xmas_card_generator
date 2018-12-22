@@ -8,6 +8,4 @@ them as a .png file.
 ```
 prompt$ npm init
 prompt$ npm install express --save
-prompt$ npm install nodemailer
-prompt$ npm install body-parser --save
 ```
